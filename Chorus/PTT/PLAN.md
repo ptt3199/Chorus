@@ -16,8 +16,8 @@ Tasks live in `Chorus/PTT/tasks/`. Branch: `ptt`.
 - [x] 05 Settings tab UI — Copilot (1st try; compile pending)
 - [x] Edit Service profile picker — Copilot, in task 05
 - [x] 06 scripts (install, update-from-upstream) + README section — Copilot (README rule example fixed by lead)
-- [ ] Full build + tests (Debug), CI green — lead
-- [ ] Install via `scripts/install-ptt.sh`, `REPORT.md` — lead
+- [x] Full build + tests (Debug), CI green — lead
+- [x] Install (from CI Release build), `REPORT.md` — lead
 
 ## Notes
 - No Xcode on the machine at the start; Xcode install started (needs the user's password). Until then, builds and tests run on CI.

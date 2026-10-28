@@ -47,5 +47,13 @@ Update later with `scripts/update-from-upstream.sh`.
 
 ## Not done / caveats
 
-- See the status line at the end of this file for the local install.
+- The local install came from the CI build; see "Install status" below.
 - The ⌥-click and right-click menus and the Chrome launch were checked by compiling and by unit tests of the logic, not by clicking through the app on this machine.
+
+## Install status
+
+Installed on 2026-10-28 from the CI Release build (workflow "Build Chorus PTT"),
+because Xcode was still downloading on this Mac. Checked: bundle id
+`com.ptt3199.Chorus`, no `SUFeedURL`, ad hoc signature; the app launched and
+created its store and `link-rules.json` in `Application Support/Chorus PTT`.
+Once Xcode is installed, `scripts/install-ptt.sh` builds and installs locally.
