@@ -176,3 +176,30 @@ struct PTTServiceProfiles: @unchecked Sendable {
         }
     }
 }
+
+/// When a navigation inside a service's popup window should go to Chrome
+/// instead. Google Chat opens Docs links in a named window: the first link
+/// creates it (sometimes at `about:blank` before setting the address) and
+/// later links only navigate it, so the window-creation hook never sees them.
+enum PTTPopupRouting {
+    /// True only for a main-frame web navigation in a popup that leaves the
+    /// service, is not a sign-in step, and does not start from a sign-in page
+    /// (so an OAuth popup finishing its round trip is left alone).
+    static func shouldConsider(
+        isPopup: Bool,
+        isMainFrame: Bool,
+        targetIsWeb: Bool,
+        leavesService: Bool,
+        targetIsSignIn: Bool,
+        currentPageIsSignIn: Bool
+    ) -> Bool {
+        isPopup && isMainFrame && targetIsWeb && leavesService && !targetIsSignIn && !currentPageIsSignIn
+    }
+
+    /// Whether the popup has shown nothing yet, so it can be closed once its
+    /// link went to Chrome instead of leaving an empty window behind.
+    static func isBlank(_ url: URL?) -> Bool {
+        guard let url else { return true }
+        return url.absoluteString.isEmpty || url.absoluteString == "about:blank"
+    }
+}

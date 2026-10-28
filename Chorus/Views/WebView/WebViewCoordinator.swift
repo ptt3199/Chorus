@@ -184,6 +184,7 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WK
             return .cancel
         }
         if PTTLinkHook.handleOptionClick(navigationAction, in: webView, from: instanceID) { return .cancel } // PTT: ⌥-click profile menu
+        if PTTLinkHook.handlePopupNavigation(navigationAction, in: webView, isPopup: isPopup(webView), serviceHost: fallbackURL?.host, serviceOwnsURL: serviceOwnsURL, from: instanceID) { return .cancel } // PTT: popup link to Chrome profile
 
         // 1. Non-web schemes (mailto:, tel:, sms:, facetime:, maps:, etc.)
         //    Hand off to the system handler so Mail/Phone/Messages opens,

@@ -26,6 +26,7 @@ upstream conflicts, re-apply the line below in the new code and keep it one line
 | `Chorus/Views/WebView/WebViewCoordinator.swift` | `openExternally(_:from:)` | Adds the defaulted `from sourceServiceID` parameter. |
 | `Chorus/Views/WebView/WebViewCoordinator.swift` | `openExternally(_:from:)` | `PTTLinkHook.open` routes web links to a Chrome profile before `NSWorkspace.open`. |
 | `Chorus/Views/WebView/WebViewCoordinator.swift` | `webView(_:decidePolicyFor:)` (navigation action), top | `PTTLinkHook.handleOptionClick`: ⌥-click on an outside link shows the profile menu. |
+| `Chorus/Views/WebView/WebViewCoordinator.swift` | same, after the ⌥-click hook | `PTTLinkHook.handlePopupNavigation`: a link inside a service popup (Google Chat's named Docs window) opens in Chrome when a profile applies. |
 | `Chorus/Views/WebView/WebViewCoordinator.swift` | same, step 3 (⌘-click) | Passes `instanceID` to `openExternally`. |
 | `Chorus/Views/WebView/WebViewCoordinator.swift` | `webView(_:createWebViewWith:...)`, before the tab decision | `PTTLinkHook.handleScriptedWindow`: `window.open` to another site opens in Chrome when a profile applies. |
 | `Chorus/App/AppState.swift` | `handleExternalLink(_:from:)` | Passes `sourceServiceID` to `openExternally`. |

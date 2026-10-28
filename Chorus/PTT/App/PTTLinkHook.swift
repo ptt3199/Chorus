@@ -171,3 +171,39 @@ extension PTTLinkHook {
         (webView?.navigationDelegate as? WebViewCoordinator)?.instanceID
     }
 }
+
+extension PTTLinkHook {
+    /// From `decidePolicyFor`: a navigation inside one of the service's popup
+    /// windows that leaves the service opens in Chrome when a rule or the
+    /// service picks a profile that exists. An empty popup is then closed.
+    @MainActor
+    static func handlePopupNavigation(
+        _ action: WKNavigationAction,
+        in popup: WKWebView,
+        isPopup: Bool,
+        serviceHost: String?,
+        serviceOwnsURL: ((URL, UUID?) -> Bool)?,
+        from sourceServiceID: UUID?
+    ) -> Bool {
+        guard isPopup, let url = action.request.url, let targetHost = url.host, let serviceHost else { return false }
+        let current = popup.url
+        let currentIsSignIn = current.map { url in
+            WebViewCoordinator.looksLikeSignIn(url) || url.host.map(WebViewCoordinator.isAuthHost) == true
+        } ?? false
+        guard PTTPopupRouting.shouldConsider(
+            isPopup: isPopup,
+            isMainFrame: action.targetFrame?.isMainFrame ?? true,
+            targetIsWeb: isWeb(url),
+            leavesService: !WebViewCoordinator.belongsToService(targetHost, serviceHost: serviceHost),
+            targetIsSignIn: WebViewCoordinator.isAuthHost(targetHost) || WebViewCoordinator.looksLikeSignIn(url),
+            currentPageIsSignIn: currentIsSignIn
+        ), !(serviceOwnsURL?(url, sourceServiceID) ?? false),
+            PTTLinkService.shared.route(url, from: sourceServiceID, onlyChrome: true)
+        else { return false }
+        if PTTPopupRouting.isBlank(current) {
+            let window = popup.window
+            Task { @MainActor in window?.close() }
+        }
+        return true
+    }
+}
