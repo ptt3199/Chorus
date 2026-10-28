@@ -14,6 +14,7 @@
 | `feat(ptt): open outside links in the right Chrome profile` | `PTTLinkService`, hooks, ⌥-click menu, right-click menu (`PTTWebView`), `HOOKS.md`. | lead |
 | `feat(ptt): Links settings tab and per-service Chrome profile` | Settings › Links tab, Edit Service picker. | Copilot (task 05) |
 | `fix(ptt): keep runtime code within what Xcode 16.2 accepts` | Review fixes. | lead |
+| `fix(ptt): route links inside a service popup ...` | Google Chat opens Docs links in a named popup and reuses it; a new hook sends those navigations to Chrome. | lead |
 | `docs(ptt): install and upstream-update scripts, README section` | `scripts/install-ptt.sh`, `scripts/update-from-upstream.sh`, README section. | Copilot (task 06), README example fixed by lead |
 
 Every Copilot task passed review on the first try; agy was not needed.
@@ -52,8 +53,9 @@ Update later with `scripts/update-from-upstream.sh`.
 
 ## Install status
 
-Installed on 2026-10-28 from the CI Release build (workflow "Build Chorus PTT"),
-because Xcode was still downloading on this Mac. Checked: bundle id
-`com.ptt3199.Chorus`, no `SUFeedURL`, ad hoc signature; the app launched and
-created its store and `link-rules.json` in `Application Support/Chorus PTT`.
-Once Xcode is installed, `scripts/install-ptt.sh` builds and installs locally.
+- 2026-10-28, first install: from the CI Release build, while Xcode was still
+  downloading.
+- 2026-10-28, current install: built locally with `scripts/install-ptt.sh`
+  (Xcode 27.1) from `dc93c35`, which also routes links inside a service popup
+  (Google Chat's reused Docs window) to the Chrome profile.
+- Local `xcodebuild test` (Debug): 520 tests, 0 failures, all six PTT suites.
