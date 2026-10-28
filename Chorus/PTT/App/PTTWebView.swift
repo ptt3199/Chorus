@@ -8,11 +8,32 @@ import WebKit
 /// WebKit does not say which link a context menu belongs to, so a small
 /// script in an isolated world reports the link under the pointer on each
 /// `contextmenu` event, just before the menu opens.
+///
+/// Chorus clears every user script when it applies a dark theme
+/// (`WebViewPool.applyInjectionLive`), which drops this one too, so the view
+/// puts it back before each load and on each right-click.
 @MainActor
 final class PTTWebView: WKWebView {
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
-        PTTContextLinkTracker.shared.install(in: self.configuration.userContentController)
+        PTTContextLinkTracker.shared.ensureInstalled(in: self)
+    }
+
+    @discardableResult
+    override func load(_ request: URLRequest) -> WKNavigation? {
+        PTTContextLinkTracker.shared.ensureInstalled(in: self)
+        return super.load(request)
+    }
+
+    @discardableResult
+    override func reload() -> WKNavigation? {
+        PTTContextLinkTracker.shared.ensureInstalled(in: self)
+        return super.reload()
+    }
+
+    override func rightMouseDown(with event: NSEvent) {
+        PTTContextLinkTracker.shared.ensureInstalled(in: self)
+        super.rightMouseDown(with: event)
     }
 
     @available(*, unavailable)
@@ -47,25 +68,38 @@ final class PTTContextLinkTracker: NSObject, WKScriptMessageHandler {
     static let shared = PTTContextLinkTracker()
     static let messageName = "pttContextLink"
 
+    /// Guarded by a flag so running it again on a live page adds no second
+    /// listener.
     private static let script = """
-    document.addEventListener('contextmenu', function (event) {
-      var target = event.target;
-      var link = target && target.closest ? target.closest('a[href]') : null;
-      window.webkit.messageHandlers.\(messageName).postMessage(link ? link.href : '');
-    }, true);
+    (function () {
+      if (window.__pttContextLink) { return; }
+      window.__pttContextLink = true;
+      document.addEventListener('contextmenu', function (event) {
+        var target = event.target;
+        var link = target && target.closest ? target.closest('a[href]') : null;
+        window.webkit.messageHandlers.\(messageName).postMessage(link ? link.href : '');
+      }, true);
+    })();
     """
 
     private let controllers = NSHashTable<WKUserContentController>.weakObjects()
     private let links = NSMapTable<WKWebView, NSURL>.weakToStrongObjects()
 
-    /// Adds the script and handler once per content controller; services that
-    /// share a controller must not register the handler twice.
-    func install(in controller: WKUserContentController) {
-        guard !controllers.contains(controller) else { return }
-        controllers.add(controller)
+    /// Registers the message handler once per content controller (adding it
+    /// twice throws), and puts the script back whenever Chorus has cleared the
+    /// user scripts, running it on the page already shown as well.
+    func ensureInstalled(in webView: WKWebView) {
+        let controller = webView.configuration.userContentController
+        if !controllers.contains(controller) {
+            controllers.add(controller)
+            controller.add(PTTWeakMessageHandler(self), contentWorld: .defaultClient, name: Self.messageName)
+        }
+        guard !controller.userScripts.contains(where: { $0.source == Self.script }) else { return }
         controller.addUserScript(WKUserScript(
             source: Self.script, injectionTime: .atDocumentStart, forMainFrameOnly: false, in: .defaultClient))
-        controller.add(PTTWeakMessageHandler(self), contentWorld: .defaultClient, name: Self.messageName)
+        if webView.url != nil {
+            webView.evaluateJavaScript(Self.script, in: nil, in: .defaultClient, completionHandler: nil)
+        }
     }
 
     func link(for webView: WKWebView) -> URL? {
