@@ -1,3 +1,50 @@
+## Chorus PTT (this fork)
+
+This fork adds Chrome profile routing for links. It differs from upstream in these ways:
+
+- It is a separate app, "Chorus PTT" (bundle id `com.ptt3199.Chorus`), with its own data in `~/Library/Application Support/Chorus PTT`.
+- It has no Sparkle updates.
+- Links that leave Chorus open in the right Chrome profile: link rules first, then the service's profile, then the Chorus default.
+- ⌥-click and right-click on a link show a profile menu.
+- Edit Service sets each service's Chrome profile. Settings › Links edits the rules, tests a link and shows the last 20 links.
+- The code lives in `Chorus/PTT/`. Upstream files only get one-line hooks, listed in `Chorus/PTT/HOOKS.md`.
+
+### Link rules
+
+Rules live in `~/Library/Application Support/Chorus PTT/link-rules.json` (Debug builds use `Chorus PTT-debug`):
+
+```json
+{
+  "version": 1,
+  "rules": [
+    { "kind": "domain",   "pattern": "youtube.com",      "profile": "personal" },
+    { "kind": "wildcard", "pattern": "*.atlassian.net",  "profile": "ONE" },
+    { "kind": "regex",    "pattern": "^https://github\\.com/quaveo/", "profile": "QUAVEO" }
+  ]
+}
+```
+
+- `domain` matches the host and its subdomains.
+- `wildcard` matches the host with `*` and `?`; a pattern with a `/` matches host and path.
+- `regex` searches the whole URL, case-insensitive.
+
+Rules match top to bottom, and the first match wins. `profile` is the name Chrome shows for the profile. `id` is optional. Chorus PTT reads your edits on the next link, or when you click Settings › Links › Reload.
+
+### Install and update
+
+You need Xcode and XcodeGen (`brew install xcodegen`).
+
+- `scripts/install-ptt.sh` builds a Release app signed ad hoc and installs it to `/Applications/Chorus PTT.app`.
+- `scripts/update-from-upstream.sh` fast-forwards `main` to upstream, rebases `ptt` on it, pushes both, and reinstalls.
+
+If Gatekeeper blocks the first launch, right-click the app and choose Open, or run:
+
+```sh
+xattr -dr com.apple.quarantine "/Applications/Chorus PTT.app"
+```
+
+---
+
 # Chorus
 
 A native macOS app that unifies your web services (Gmail, Slack, Discord,

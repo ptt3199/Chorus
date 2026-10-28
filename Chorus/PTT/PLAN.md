@@ -15,7 +15,7 @@ Tasks live in `Chorus/PTT/tasks/`. Branch: `ptt`.
 - [x] Hooks into author files + `HOOKS.md` — lead
 - [x] 05 Settings tab UI — Copilot (1st try; compile pending)
 - [x] Edit Service profile picker — Copilot, in task 05
-- [ ] 06 scripts (install, update-from-upstream) + README section — worker
+- [x] 06 scripts (install, update-from-upstream) + README section — Copilot (README rule example fixed by lead)
 - [ ] Full build + tests (Debug), CI green — lead
 - [ ] Install via `scripts/install-ptt.sh`, `REPORT.md` — lead
 
