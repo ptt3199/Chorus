@@ -11,11 +11,11 @@ Tasks live in `Chorus/PTT/tasks/`. Branch: `ptt`.
 - [x] 02 URL rewriting + tests — Copilot (1st try)
 - [x] 03 Chrome profiles + tests — Copilot (1st try)
 - [x] 04 resolver, log, service profiles + tests — Copilot (1st try)
-- [ ] Runtime layer (`Chorus/PTT/App/`: rule file store, link service, hooks, web view menu) — lead
-- [ ] Hooks into author files + `HOOKS.md` — lead
-- [ ] 05 Settings section UI — worker
-- [ ] 06 Edit Service profile picker UI — worker
-- [ ] 07 scripts (install, update-from-upstream) + README section — worker
+- [x] Runtime layer (`Chorus/PTT/App/`: rule file store, link service, hooks, web view menu) — lead
+- [x] Hooks into author files + `HOOKS.md` — lead
+- [x] 05 Settings tab UI — Copilot (1st try; compile pending)
+- [x] Edit Service profile picker — Copilot, in task 05
+- [ ] 06 scripts (install, update-from-upstream) + README section — worker
 - [ ] Full build + tests (Debug), CI green — lead
 - [ ] Install via `scripts/install-ptt.sh`, `REPORT.md` — lead
 

@@ -55,6 +55,8 @@ struct SettingsView: View {
                     Label("Privacy", systemImage: "lock")
                 }
 
+            PTTLinkSettingsTab() // PTT: Chrome profile links tab
+
             aboutTab
                 .tabItem {
                     Label("About", systemImage: "info.circle")

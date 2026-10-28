@@ -207,6 +207,7 @@ struct EditServiceSheet: View {
             Text("Browser").tag(Bool?.some(false))
         }
         .help("Where a link opens when it points somewhere no Chorus service covers. A link that another service covers still switches to that service.")
+        PTTServiceProfilePicker(serviceID: service.id) // PTT: Chrome profile for this service
 
         Toggle("Always appear active", isOn: $stayActive)
             .help("Keeps this service from showing you as away or idle while Chorus is in the background, so your status stays active even when you work in other apps. Useful for Microsoft Teams. May hold back some of this service's notifications, since it now thinks you're looking at it.")
