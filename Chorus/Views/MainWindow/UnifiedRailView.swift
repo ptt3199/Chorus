@@ -1767,7 +1767,7 @@ struct UnifiedRailView: View {
         let liveURL = appState.webViewPool.liveWebView(for: service.id)?.url
         let target = liveURL ?? URL(string: service.url)
         if let target {
-            WebViewCoordinator.openExternally(target)
+            WebViewCoordinator.openExternally(target, from: service.id) // PTT: source service
         }
     }
 

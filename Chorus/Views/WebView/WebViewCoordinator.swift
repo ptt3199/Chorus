@@ -140,11 +140,12 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WK
 
     /// Hands `url` to the system handler, but only on a vetted scheme. Anything
     /// else is dropped with a log line rather than silently ignored.
-    nonisolated static func openExternally(_ url: URL) {
+    nonisolated static func openExternally(_ url: URL, from sourceServiceID: UUID? = nil) { // PTT: source service
         guard isSafeForExternalOpen(url) else {
             AppLogger.webView.info("Blocked external open on disallowed scheme: \(url.scheme ?? "none")")
             return
         }
+        if PTTLinkHook.open(url, from: sourceServiceID) { return } // PTT: Chrome profile routing
         NSWorkspace.shared.open(url)
     }
 
@@ -182,6 +183,7 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WK
         guard let url = navigationAction.request.url else {
             return .cancel
         }
+        if PTTLinkHook.handleOptionClick(navigationAction, in: webView, from: instanceID) { return .cancel } // PTT: ⌥-click profile menu
 
         // 1. Non-web schemes (mailto:, tel:, sms:, facetime:, maps:, etc.)
         //    Hand off to the system handler so Mail/Phone/Messages opens,
@@ -215,7 +217,7 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WK
         //    modifierFlags on the navigation action.
         if navigationAction.navigationType == .linkActivated,
            navigationAction.modifierFlags.contains(.command) {
-            Self.openExternally(url)
+            Self.openExternally(url, from: instanceID) // PTT: source service
             return .cancel
         }
 
@@ -652,6 +654,8 @@ final class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WK
             }
             return nil
         }
+
+        if PTTLinkHook.handleScriptedWindow(navigationAction, opener: webView, openerIsPopup: openerIndex != nil, windowFeatures: windowFeatures, serviceOwnsURL: serviceOwnsURL, from: instanceID) { return nil } // PTT: window.open to Chrome profile
 
         // A page the service opens for itself — a Canva design, a Figma file —
         // shows as a tab in the service's card, not in a loose window.

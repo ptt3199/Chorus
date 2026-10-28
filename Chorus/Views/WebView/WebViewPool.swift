@@ -274,7 +274,7 @@ final class WebViewPool {
         }
 
         let config = makeConfiguration(for: instance)
-        let webView = WKWebView(frame: CGRect(origin: .zero, size: WebViewHostView.lastSize), configuration: config)
+        let webView = PTTWebView(frame: CGRect(origin: .zero, size: WebViewHostView.lastSize), configuration: config) // PTT: link context menu
         webView.allowsBackForwardNavigationGestures = true
         webView.customUserAgent = instance.userAgent ?? UserAgentProvider.safariDefault
         #if DEBUG
@@ -323,7 +323,7 @@ final class WebViewPool {
         guard instance.nativeAppBundleID == nil else { return }
 
         let config = makeConfiguration(for: instance)
-        let webView = WKWebView(frame: CGRect(origin: .zero, size: WebViewHostView.lastSize), configuration: config)
+        let webView = PTTWebView(frame: CGRect(origin: .zero, size: WebViewHostView.lastSize), configuration: config) // PTT: link context menu
         webView.allowsBackForwardNavigationGestures = true
         webView.customUserAgent = instance.userAgent ?? UserAgentProvider.safariDefault
         #if DEBUG

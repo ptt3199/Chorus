@@ -94,7 +94,7 @@ struct WebNavButtons: View {
         guard let url = currentPageURL else { return }
         // Through the same scheme check every other way out uses: an
         // `about:` or `blob:` page has no business going to the system.
-        WebViewCoordinator.openExternally(url)
+        WebViewCoordinator.openExternally(url, from: PTTLinkHook.serviceID(of: webViewState.webView)) // PTT: source service
     }
 
     private func copyCurrentURL() {

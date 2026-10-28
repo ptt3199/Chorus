@@ -620,6 +620,7 @@ final class AppState {
     /// which prefers switching to a matching Chorus service over opening
     /// Safari, but falls back to NSWorkspace when no service matches.
     private func setupExternalLinkRouting() {
+        PTTLinkService.shared.serviceName = { [weak self] id in self?.fetchService(id: id)?.label } // PTT: names for the link log
         webViewPool.externalLinkHandler = { [weak self] url, sourceServiceID in
             self?.handleExternalLink(url, from: sourceServiceID)
         }
@@ -980,7 +981,7 @@ final class AppState {
         if WebViewCoordinator.shouldOpenInAppBrowser(sourceOptedIn: optedIn, url: url) {
             InAppBrowserWindow.open(url)
         } else {
-            WebViewCoordinator.openExternally(url)
+            WebViewCoordinator.openExternally(url, from: sourceServiceID) // PTT: source service
         }
     }
 
