@@ -8,7 +8,7 @@ Tasks live in `Chorus/PTT/tasks/`. Branch: `ptt`.
 - [x] Split app (bundle id, product name, store folders, no store adoption, Sparkle out, workflows) — lead
 - [x] Contract API in `Chorus/PTT/Core/` (TODO bodies) — lead
 - [x] 01 link rules + tests — Copilot (1st try; reviewed, Core builds)
-- [ ] 02 URL rewriting + tests — worker
+- [x] 02 URL rewriting + tests — Copilot (1st try)
 - [ ] 03 Chrome profiles + tests — worker
 - [ ] 04 resolver, log, service profiles + tests — worker
 - [ ] Runtime layer (`Chorus/PTT/App/`: rule file store, link service, hooks, web view menu) — lead
