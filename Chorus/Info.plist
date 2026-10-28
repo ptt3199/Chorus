@@ -13,24 +13,6 @@
     <key>NSMicrophoneUsageDescription</key>
     <string>Chorus needs microphone access so your web services can use voice and video calls.</string>
 
-    <!-- Sparkle auto-update (direct distribution). See DISTRIBUTION.md.
-         SUPublicEDKey is the same EdDSA key used for WatchMeType (verified to
-         match the private key in the login Keychain). SUFeedURL is served by
-         a Cloudflare Worker (release/appcast-worker), which passes through the
-         same appcast GitHub Pages serves from this repo's /docs folder and
-         counts how many copies check each day. Builds up to 1.5.19 point at
-         the Pages URL directly; that URL stays live for them. -->
-    <key>SUFeedURL</key>
-    <string>https://updates.nicojan.com/chorus/appcast.xml</string>
-    <key>SUPublicEDKey</key>
-    <string>6/h2Pfjbo39vHie8JIt/kY7h0wQvmQxj9Ea0W3gnH0w=</string>
-    <!-- Check for updates on a schedule without asking on first launch, so
-         users get crash and security fixes. Interval is in seconds (86400 =
-         once a day). -->
-    <key>SUEnableAutomaticChecks</key>
-    <true/>
-    <key>SUScheduledCheckInterval</key>
-    <integer>86400</integer>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

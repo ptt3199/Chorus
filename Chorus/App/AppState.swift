@@ -419,7 +419,7 @@ final class AppState {
         // documents. The debug *bundle id* (project.yml) already separates
         // WebKit, Preferences and notifications.
         #if DEBUG
-        let debugDir = URL.applicationSupportDirectory.appending(path: "Chorus-debug")
+        let debugDir = URL.applicationSupportDirectory.appending(path: PTTAppIdentity.debugStoreFolder) // PTT: own debug store
         try? FileManager.default.createDirectory(at: debugDir, withIntermediateDirectories: true)
         let config = ModelConfiguration(schema: schema, url: debugDir.appending(path: "default.store"))
         #else

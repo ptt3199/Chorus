@@ -59,6 +59,7 @@
 		78C80EEE6E3E6F9D2DB819D5 /* RailSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BCDA03CE248BE3E75D814 /* RailSupport.swift */; };
 		79F69990EE72D6196FBB80B8 /* RailDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ECDB7D8F7F0F324289AD37 /* RailDividerView.swift */; };
 		7AC2ADDF366CF435BDB65C3E /* RailRuns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200EDE680C15FBE00601E12 /* RailRuns.swift */; };
+		7E2130B9468979E4AB689575 /* PTTAppIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769C8EDC3EF33F48531A8180 /* PTTAppIdentity.swift */; };
 		817A70A10923352BBAC3F63E /* CatalogIconCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0693A705E1552F5809BA3399 /* CatalogIconCache.swift */; };
 		8325C3DEC3242E7E2C19EB07 /* SpacePaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E9D5B98CFDDD0B2E7FD42C /* SpacePaletteView.swift */; };
 		863BAA64BC341E5286D8915E /* UnifiedRailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2B28970B7AEF9B0EB53AFD /* UnifiedRailView.swift */; };
@@ -112,7 +113,6 @@
 		E28F6C4DD1E61484CEA773F0 /* ContentBlockerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728A9599471A2AB033991157 /* ContentBlockerManager.swift */; };
 		E2BFB66EDC3B4F7CD92A1836 /* TrafficLights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161E11C236922FC7AEFB3DF /* TrafficLights.swift */; };
 		E8288CD202E937B4B6087D67 /* RailOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264BBC99612EDA5183912E7 /* RailOrder.swift */; };
-		F1E3E4A757954012789BD79D /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = F63EF11A2754495AEB09C97E /* Sparkle */; };
 		F485F694BEA64C6EDA2CD167 /* SheetQuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C26C37D627ADE04B904988 /* SheetQuit.swift */; };
 		F709F5524B2146C260A0BCB0 /* BadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D85D3C09C182826CD4EBA /* BadgeManager.swift */; };
 		FA1D896C41D6CA79990ECDD9 /* GroupRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1837F8880FC36D4FAC3DA51D /* GroupRules.swift */; };
@@ -187,6 +187,7 @@
 		728A9599471A2AB033991157 /* ContentBlockerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBlockerManager.swift; sourceTree = "<group>"; };
 		7458024AA17BF508D4807018 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76865DDEE671C34CC88CF4D8 /* FindInPageBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindInPageBar.swift; sourceTree = "<group>"; };
+		769C8EDC3EF33F48531A8180 /* PTTAppIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTAppIdentity.swift; sourceTree = "<group>"; };
 		78D790EF25ED3F63D2C8859E /* GroupMenus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMenus.swift; sourceTree = "<group>"; };
 		7C3DF954AFE066BC42761ABC /* licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = licenses; sourceTree = SOURCE_ROOT; };
 		7E0D298EDEBDC1F1EB614912 /* AppCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCapabilities.swift; sourceTree = "<group>"; };
@@ -245,18 +246,15 @@
 		FF1B76F1DCF6AD0DC9CD9FEB /* GroupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		BF90968F35D5E4EA1732829D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F1E3E4A757954012789BD79D /* Sparkle in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
+		00B00B24DF78846B5B74B824 /* PTT */ = {
+			isa = PBXGroup;
+			children = (
+				EA5BF45059A1A0625952CEA1 /* Core */,
+			);
+			path = PTT;
+			sourceTree = "<group>";
+		};
 		1E8D1445F53AC2640039824D /* WebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,12 +480,21 @@
 				EA17C93CEDF437318D536482 /* Info.plist */,
 				F18B9D9ED0D379C40A435820 /* App */,
 				E8AF661ED6B731E65D483006 /* Models */,
+				00B00B24DF78846B5B74B824 /* PTT */,
 				7DE2F494AB8704575BAF64E6 /* Resources */,
 				385199E85C64EC6FCEE24516 /* Services */,
 				80A88D8144AE30C8EA121476 /* Utilities */,
 				85DFF49683E3650182C0C3A0 /* Views */,
 			);
 			path = Chorus;
+			sourceTree = "<group>";
+		};
+		EA5BF45059A1A0625952CEA1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				769C8EDC3EF33F48531A8180 /* PTTAppIdentity.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		F1846EB9EB4BB58BDC89DC99 /* ContentBlocker */ = {
@@ -555,7 +562,6 @@
 			buildPhases = (
 				4F2F2A932F1B2186C8D50307 /* Sources */,
 				E94009386810F8E81AF8C17C /* Resources */,
-				BF90968F35D5E4EA1732829D /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -563,7 +569,6 @@
 			);
 			name = Chorus;
 			packageProductDependencies = (
-				F63EF11A2754495AEB09C97E /* Sparkle */,
 			);
 			productName = Chorus;
 			productReference = 94326A5DEE01135F945E9DF3 /* Chorus.app */;
@@ -589,9 +594,6 @@
 			);
 			mainGroup = E6B956F378DA41D1697BAD7C;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				76692F1A5ADEE9BDB4D2EDF7 /* XCRemoteSwiftPackageReference "Sparkle" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3E034E22799F25CC522A1262 /* Products */;
 			projectDirPath = "";
@@ -675,6 +677,7 @@
 				8E4B7701A7A18F51C6109E10 /* NetworkMonitor.swift in Sources */,
 				FC24793EEE444C3F48F17559 /* NotificationManager.swift in Sources */,
 				A96CBF7ECCEC4F44B5A6351E /* OutsideLinkDefault.swift in Sources */,
+				7E2130B9468979E4AB689575 /* PTTAppIdentity.swift in Sources */,
 				53C0B5A438EDC6C98FE081AB /* QuickSwitcherView.swift in Sources */,
 				DFF3C2C6D2BD8785482FDAD1 /* RailDivider.swift in Sources */,
 				79F69990EE72D6196FBB80B8 /* RailDividerView.swift in Sources */,
@@ -760,7 +763,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nicojan.ChorusTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ptt3199.ChorusTests;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 6.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chorus.app/Contents/MacOS/Chorus";
@@ -828,9 +831,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Chorus/Chorus.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 44;
-				DEVELOPMENT_TEAM = 3CY4DX3K45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Chorus/Info.plist;
@@ -842,8 +845,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.5.31;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nicojan.Chorus;
-				PRODUCT_NAME = Chorus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ptt3199.Chorus;
+				PRODUCT_MODULE_NAME = Chorus;
+				PRODUCT_NAME = "Chorus PTT";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 6.0;
 			};
@@ -930,8 +934,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.5.31;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nicojan.Chorus.debug;
-				PRODUCT_NAME = Chorus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ptt3199.Chorus.debug;
+				PRODUCT_MODULE_NAME = Chorus;
+				PRODUCT_NAME = "Chorus PTT";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 6.0;
 			};
@@ -949,7 +954,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nicojan.ChorusTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ptt3199.ChorusTests;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 6.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chorus.app/Contents/MacOS/Chorus";
@@ -987,25 +992,6 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		76692F1A5ADEE9BDB4D2EDF7 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.9.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F63EF11A2754495AEB09C97E /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 76692F1A5ADEE9BDB4D2EDF7 /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 874B03B40384809994AC53EE /* Project object */;
 }

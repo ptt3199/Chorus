@@ -1,15 +1,10 @@
 name: Chorus
 options:
-  bundleIdPrefix: com.nicojan
+  bundleIdPrefix: com.ptt3199
   deploymentTarget:
     macOS: "14.0"
   xcodeVersion: "16.0"
   createIntermediateGroups: true
-
-packages:
-  Sparkle:
-    url: https://github.com/sparkle-project/Sparkle
-    majorVersion: 2.9.3
 
 targets:
   Chorus:
@@ -34,12 +29,11 @@ targets:
       - path: Chorus/Resources/darkreader.js
       - path: Chorus/Resources/NotificationScripts
         optional: true
-    dependencies:
-      - package: Sparkle
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.nicojan.Chorus
-        PRODUCT_NAME: Chorus
+        PRODUCT_BUNDLE_IDENTIFIER: com.ptt3199.Chorus
+        PRODUCT_NAME: "Chorus PTT"
+        PRODUCT_MODULE_NAME: Chorus
         MARKETING_VERSION: "1.5.31"
         CURRENT_PROJECT_VERSION: "44"
         SWIFT_VERSION: "6.0"
@@ -59,13 +53,10 @@ targets:
         # SwiftData store is moved separately in AppState.init (its default path
         # is not bundle-scoped). See fix/isolate-debug-data.
         Debug:
-          PRODUCT_BUNDLE_IDENTIFIER: com.nicojan.Chorus.debug
-        # Only the Release build (used by Archive) needs the Developer ID team.
-        # Keeping it out of Debug lets the app sign ad-hoc so it and the ad-hoc
-        # xctest bundle share a Team ID; a real team on only the host trips
-        # dyld's Team ID check and unit tests fail to load.
+          PRODUCT_BUNDLE_IDENTIFIER: com.ptt3199.Chorus.debug
+        # Chorus PTT: Release signs ad-hoc too (no Developer ID team).
         Release:
-          DEVELOPMENT_TEAM: "3CY4DX3K45"
+          CODE_SIGN_IDENTITY: "-"
     scheme:
       testTargets:
         - ChorusTests
@@ -79,7 +70,7 @@ targets:
       - target: Chorus
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.nicojan.ChorusTests
+        PRODUCT_BUNDLE_IDENTIFIER: com.ptt3199.ChorusTests
         SWIFT_VERSION: "6.0"
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         # Required so the test bundle can be code-signed; without an explicit

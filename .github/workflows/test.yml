@@ -8,7 +8,7 @@ name: Test
 
 on:
   push:
-    branches: [main]
+    branches: [main, ptt]
   pull_request:
   workflow_dispatch:
 

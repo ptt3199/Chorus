@@ -28,7 +28,7 @@ import Foundation
 /// read back.
 enum StoreRelocation {
     /// The folder the store moves into, under Application Support.
-    static let folderName = "Chorus"
+    static let folderName = PTTAppIdentity.storeFolder // PTT: own store folder
 
     /// SwiftData's default store filename. Kept as the store's name after the
     /// move so every `.bak` sibling, the pending-restore validation, and the
@@ -40,7 +40,7 @@ enum StoreRelocation {
     static func resolveStoreURL() -> URL {
         let support = URL.applicationSupportDirectory
         return resolveStoreURL(
-            legacy: support.appending(path: storeName),
+            legacy: support.appending(path: folderName).appending(path: storeName), // PTT: never adopt the original Chorus store
             scoped: support.appending(path: folderName).appending(path: storeName)
         )
     }

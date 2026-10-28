@@ -74,7 +74,7 @@ enum FeatureTips {
     /// fell into (see `StoreRelocation`). Debug builds keep their own.
     static func configure() {
         #if DEBUG
-        let folder = URL.applicationSupportDirectory.appending(path: "Chorus-debug")
+        let folder = URL.applicationSupportDirectory.appending(path: PTTAppIdentity.debugStoreFolder) // PTT: own debug folder
         #else
         let folder = URL.applicationSupportDirectory.appending(path: StoreRelocation.folderName)
         #endif
