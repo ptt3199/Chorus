@@ -7,7 +7,7 @@ Tasks live in `Chorus/PTT/tasks/`. Branch: `ptt`.
 - [x] Fork ptt3199/Chorus, clone, `upstream` remote, `ptt` default branch — lead
 - [x] Split app (bundle id, product name, store folders, no store adoption, Sparkle out, workflows) — lead
 - [x] Contract API in `Chorus/PTT/Core/` (TODO bodies) — lead
-- [ ] 01 link rules + tests — worker
+- [x] 01 link rules + tests — Copilot (1st try; reviewed, Core builds)
 - [ ] 02 URL rewriting + tests — worker
 - [ ] 03 Chrome profiles + tests — worker
 - [ ] 04 resolver, log, service profiles + tests — worker
