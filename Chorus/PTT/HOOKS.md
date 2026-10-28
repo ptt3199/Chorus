@@ -16,6 +16,7 @@ upstream conflicts, re-apply the line below in the new code and keep it one line
 | `Chorus/Views/Tips/FeatureTips.swift` | `configure()`, `#if DEBUG` | TipKit folder `Chorus PTT-debug` (Release follows `StoreRelocation.folderName`). |
 | `.github/workflows/test.yml` | `on.push.branches` | Also runs on `ptt`. |
 | `.github/workflows/pages.yml` | — | Deleted (appcast deploy). |
+| `.github/workflows/ptt-build.yml` | — | New: Release build, ad hoc, uploaded as an artifact. |
 | `Chorus.xcodeproj/xcshareddata/.../Package.resolved` | — | Deleted (Sparkle pin). |
 
 ## Chrome profile links

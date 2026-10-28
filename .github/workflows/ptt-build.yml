@@ -1,0 +1,40 @@
+name: Build Chorus PTT
+
+# Builds the Release app, signed ad hoc, and keeps it as a run artifact so it
+# can be installed on a Mac without Xcode. Build only: tests always run under
+# Debug (see CLAUDE.md), never Release.
+on:
+  workflow_dispatch:
+  push:
+    branches: [ptt]
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use the newest installed Xcode
+        run: |
+          newest=$(ls -d /Applications/Xcode*.app | sort -V | tail -1)
+          sudo xcode-select -s "$newest/Contents/Developer"
+          xcodebuild -version
+
+      - name: Build Release (ad hoc)
+        run: |
+          set -o pipefail
+          xcodebuild -project Chorus.xcodeproj -scheme Chorus -configuration Release \
+            -destination 'platform=macOS' -derivedDataPath build/ptt \
+            CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM= build -quiet
+
+      - name: Zip the app
+        run: |
+          cd build/ptt/Build/Products/Release
+          ditto -c -k --keepParent "Chorus PTT.app" "$GITHUB_WORKSPACE/Chorus-PTT.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Chorus-PTT
+          path: Chorus-PTT.zip
+          retention-days: 14
