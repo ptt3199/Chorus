@@ -73,6 +73,9 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ptt3199.ChorusTests
+        # Chorus PTT: the host app's product name differs from its target name.
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Chorus PTT.app/Contents/MacOS/Chorus PTT"
+        BUNDLE_LOADER: "$(TEST_HOST)"
         SWIFT_VERSION: "6.0"
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         # Required so the test bundle can be code-signed; without an explicit
