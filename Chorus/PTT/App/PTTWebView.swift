@@ -36,7 +36,7 @@ final class PTTWebView: WKWebView {
             menu.insertItem(items[0], at: index)
         } else {
             menu.addItem(.separator())
-            items.forEach(menu.addItem)
+            for item in items { menu.addItem(item) }
         }
     }
 }

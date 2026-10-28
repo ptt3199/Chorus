@@ -28,7 +28,7 @@ enum PTTLinkHook {
         else { return false }
         // Shown after WebKit has its answer, so the menu's own event loop does
         // not hold the navigation callback open.
-        DispatchQueue.main.async {
+        Task { @MainActor in
             PTTLinkMenus.showProfileMenu(for: url, in: webView, from: sourceServiceID)
         }
         return true
@@ -107,7 +107,7 @@ enum PTTLinkMenus {
         })
 
         let point = view.window.map { view.convert($0.mouseLocationOutsideOfEventStream, from: nil) } ?? .zero
-        menu.popUp(positioning: nil, at: point, in: view)
+        _ = menu.popUp(positioning: nil, at: point, in: view)
     }
 
     /// Items added to a web view's right-click menu on a link: a submenu of

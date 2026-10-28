@@ -27,7 +27,7 @@ final class PTTLinkService {
     @ObservationIgnored var serviceName: ((UUID) -> String?)?
 
     @ObservationIgnored private var ruleFileDate: Date?
-    @ObservationIgnored private let serviceProfiles = PTTServiceProfiles()
+    private let serviceProfiles = PTTServiceProfiles()
 
     init(ruleFileURL: URL = PTTAppIdentity.supportFolder.appending(path: "link-rules.json")) {
         self.ruleFileURL = ruleFileURL
