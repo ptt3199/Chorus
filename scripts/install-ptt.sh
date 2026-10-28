@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build Chorus PTT in Release (ad-hoc signed) and install it to /Applications.
+# Build Chorus PTT in Release (ad-hoc signed, Apple Silicon only) and install it to /Applications.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -23,7 +23,8 @@ xcodegen generate
 
 echo "==> Building Chorus PTT (Release, ad-hoc signed)"
 xcodebuild -project Chorus.xcodeproj -scheme Chorus -configuration Release \
-    -destination 'platform=macOS' -derivedDataPath build/ptt \
+    -destination 'platform=macOS,arch=arm64' -derivedDataPath build/ptt \
+    ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
     CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM= build -quiet
 
 if [ ! -d "$BUILT_APP" ]; then
