@@ -10,7 +10,7 @@ Tasks live in `Chorus/PTT/tasks/`. Branch: `ptt`.
 - [x] 01 link rules + tests — Copilot (1st try; reviewed, Core builds)
 - [x] 02 URL rewriting + tests — Copilot (1st try)
 - [x] 03 Chrome profiles + tests — Copilot (1st try)
-- [ ] 04 resolver, log, service profiles + tests — worker
+- [x] 04 resolver, log, service profiles + tests — Copilot (1st try)
 - [ ] Runtime layer (`Chorus/PTT/App/`: rule file store, link service, hooks, web view menu) — lead
 - [ ] Hooks into author files + `HOOKS.md` — lead
 - [ ] 05 Settings section UI — worker

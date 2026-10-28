@@ -67,7 +67,37 @@ enum PTTLinkResolver {
         rules: PTTRuleSet,
         profiles: [PTTChromeProfile]
     ) -> PTTLinkResolution {
-        fatalError("TODO")
+        func result(_ branch: PTTLinkResolution.Branch, _ target: PTTLinkResolution.Target,
+                    _ resolved: URL) -> PTTLinkResolution {
+            PTTLinkResolution(originalURL: url, url: resolved, branch: branch, target: target)
+        }
+
+        guard let scheme = url.scheme?.lowercased(), scheme == "http" || scheme == "https" else {
+            return result(.fallback, .unchanged, url)
+        }
+        let unwrapped = PTTURLRewriting.unwrapRedirect(url)
+
+        if isOwnedByChorusService(unwrapped) {
+            return result(.chorusService, .unchanged, url)
+        }
+
+        let branch: PTTLinkResolution.Branch
+        let name: String
+        if let rule = rules.firstMatch(for: unwrapped) {
+            branch = .rule(rule)
+            name = rule.profile
+        } else if let serviceProfile, !serviceProfile.isEmpty {
+            branch = .serviceProfile
+            name = serviceProfile
+        } else {
+            return result(.fallback, .unchanged, unwrapped)
+        }
+
+        guard let profile = PTTChromeProfiles.find(name, in: profiles) else {
+            return result(branch, .missingProfile(name), unwrapped)
+        }
+        let opened = PTTURLRewriting.addingAuthUser(to: unwrapped, email: profile.email)
+        return result(branch, .chrome(profile), opened)
     }
 }
 
@@ -97,13 +127,22 @@ struct PTTLinkLog: Equatable, Sendable {
 
     /// Inserts at the front and drops the oldest past `capacity`.
     mutating func record(_ entry: PTTLinkLogEntry) {
-        fatalError("TODO")
+        entries.insert(entry, at: 0)
+        if entries.count > capacity {
+            entries.removeLast(entries.count - max(capacity, 0))
+        }
     }
 
     /// Builds an entry from a resolution: `url` is `resolution.url`, `rule`
     /// is "<kind> <pattern>" for `.rule`, `profile` is `profileName`.
     static func entry(for resolution: PTTLinkResolution, sourceService: String?, date: Date = Date()) -> PTTLinkLogEntry {
-        fatalError("TODO")
+        var ruleText: String?
+        if case .rule(let rule) = resolution.branch {
+            ruleText = "\(rule.kind.rawValue) \(rule.pattern)"
+        }
+        return PTTLinkLogEntry(
+            date: date, url: resolution.url, sourceService: sourceService,
+            rule: ruleText, profile: resolution.profileName)
     }
 }
 
@@ -122,11 +161,18 @@ struct PTTServiceProfiles: @unchecked Sendable {
 
     /// The profile name, or nil when unset or empty.
     func profile(for serviceID: UUID) -> String? {
-        fatalError("TODO")
+        guard let value = defaults.string(forKey: Self.key(for: serviceID)) else { return nil }
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 
     /// Sets the profile; nil or an empty string removes the key.
     func setProfile(_ name: String?, for serviceID: UUID) {
-        fatalError("TODO")
+        let trimmed = name?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if trimmed.isEmpty {
+            defaults.removeObject(forKey: Self.key(for: serviceID))
+        } else {
+            defaults.set(trimmed, forKey: Self.key(for: serviceID))
+        }
     }
 }
