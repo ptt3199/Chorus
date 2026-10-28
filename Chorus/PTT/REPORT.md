@@ -15,6 +15,8 @@
 | `feat(ptt): Links settings tab and per-service Chrome profile` | Settings › Links tab, Edit Service picker. | Copilot (task 05) |
 | `fix(ptt): keep runtime code within what Xcode 16.2 accepts` | Review fixes. | lead |
 | `fix(ptt): route links inside a service popup ...` | Google Chat opens Docs links in a named popup and reuses it; a new hook sends those navigations to Chrome. | lead |
+| `fix(ptt): keep the right-click link script ...` | Chorus clears all user scripts when it applies a dark theme, which removed the script behind "Open in Chrome Profile"; `PTTWebView` now restores it on load, reload and right-click. | lead |
+| `build(ptt): install script builds arm64 only` (+ generic destination) | Local installs skip the x86_64 slice. | lead |
 | `docs(ptt): install and upstream-update scripts, README section` | `scripts/install-ptt.sh`, `scripts/update-from-upstream.sh`, README section. | Copilot (task 06), README example fixed by lead |
 
 Every Copilot task passed review on the first try; agy was not needed.
@@ -49,13 +51,12 @@ Update later with `scripts/update-from-upstream.sh`.
 ## Not done / caveats
 
 - The local install came from the CI build; see "Install status" below.
-- The ⌥-click and right-click menus and the Chrome launch were checked by compiling and by unit tests of the logic, not by clicking through the app on this machine.
+- The right-click menu and the Chrome launch were checked in the app; the ⌥-click menu was checked by compiling and unit tests only.
 
 ## Install status
 
-- 2026-10-28, first install: from the CI Release build, while Xcode was still
-  downloading.
-- 2026-10-28, current install: built locally with `scripts/install-ptt.sh`
-  (Xcode 27.1) from `dc93c35`, which also routes links inside a service popup
-  (Google Chat's reused Docs window) to the Chrome profile.
+- First install: from the CI Release build, while Xcode was still downloading.
+- Current install: built locally with `scripts/install-ptt.sh` (Xcode 27.1,
+  arm64 only) from `746ad39`. Checked by hand: "Open in Chrome Profile" from a
+  link's right-click menu in Google Chat.
 - Local `xcodebuild test` (Debug): 520 tests, 0 failures, all six PTT suites.
