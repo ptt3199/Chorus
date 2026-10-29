@@ -48,6 +48,14 @@ Every Copilot task passed review on the first try; agy was not needed.
 Rule file: `~/Library/Application Support/Chorus PTT/link-rules.json`.
 Update later with `scripts/update-from-upstream.sh`.
 
+## Vietnamese input
+
+Typing Vietnamese in Google Chat went wrong with the VietTelex input method.
+VietTelex sets its typing mode per bundle id; `com.ptt3199.Chorus` is not in
+its table, so it used Tap (backspace-retype), which WebKit swallows. Fixed on
+this Mac by pinning Chorus PTT to In-place (Gõ trực tiếp) in VietTelex
+Settings › Ứng dụng; steps are in the README. No change to the app.
+
 ## Not done / caveats
 
 - The local install came from the CI build; see "Install status" below.

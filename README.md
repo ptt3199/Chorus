@@ -43,6 +43,20 @@ If Gatekeeper blocks the first launch, right-click the app and choose Open, or r
 xattr -dr com.apple.quarantine "/Applications/Chorus PTT.app"
 ```
 
+### Vietnamese input (VietTelex)
+
+VietTelex picks how it types per app, by bundle id. Chorus PTT is not in its
+list, so it falls back to Tap (backspace-retype), and WebKit drops those
+synthetic keystrokes: "thêm" comes out as "themee". Set Chorus PTT to type
+in place:
+
+1. With Chorus PTT in front, open the VietTelex menu and click the
+   "Cách gõ: …" line (or Cài đặt… › tab Ứng dụng).
+2. Find Chorus PTT, or add the bundle id `com.ptt3199.Chorus`, and pick
+   Gõ trực tiếp (In-place).
+3. If letters still go wrong, or keys stop after Delete, pick
+   Gõ có gạch chân (Marked text) instead.
+
 ---
 
 # Chorus
